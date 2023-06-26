@@ -19,8 +19,12 @@ public class DeliveryCardHomeWorkTest {
     public String generateDate(long addDays, String pattern) {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
     }
-
     String planningDate = generateDate(4, "dd.MM.yyyy");
+
+    public String actualDate(String pattern) {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(pattern));
+    }
+    String currentDate = actualDate("dd.MM.yyyy");
 
     @BeforeEach
     void setUp() {
@@ -88,7 +92,7 @@ public class DeliveryCardHomeWorkTest {
     void DeliveryCardNegativeDateTest() {
         open("http://localhost:9999");
         $("[data-test-id=city] input").setValue("Москва");
-        $("[data-test-id=date] input").doubleClick().sendKeys("25.06.2023");
+        $("[data-test-id=date] input").doubleClick().sendKeys(currentDate);
         $("[data-test-id=name] input").setValue("Артемова Оксана");
         $("[data-test-id=phone] input").setValue("+79103696853");
         $("[data-test-id=agreement]").click();
