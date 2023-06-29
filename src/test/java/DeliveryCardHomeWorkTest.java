@@ -1,8 +1,6 @@
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -20,22 +18,6 @@ public class DeliveryCardHomeWorkTest {
         return LocalDate.now().plusDays(addDays).format(DateTimeFormatter.ofPattern(pattern));
     }
     String planningDate = generateDate(4, "dd.MM.yyyy");
-
-    public String actualDate(String pattern) {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern(pattern));
-    }
-    String currentDate = actualDate("dd.MM.yyyy");
-
-    @BeforeEach
-    void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(
-                "--disable-dev-shm-usage");
-        options.addArguments(
-                "--no-sandbox");
-        options.addArguments(
-                "--headless");
-    }
 
     @Test
     void DeliveryCardPositiveTest() {
@@ -92,7 +74,7 @@ public class DeliveryCardHomeWorkTest {
     void DeliveryCardNegativeDateTest() {
         open("http://localhost:9999");
         $("[data-test-id=city] input").setValue("Москва");
-        $("[data-test-id=date] input").doubleClick().sendKeys(currentDate);
+        $("[data-test-id=date] input").doubleClick().sendKeys(generateDate(0, "dd.MM.yyyy"));
         $("[data-test-id=name] input").setValue("Артемова Оксана");
         $("[data-test-id=phone] input").setValue("+79103696853");
         $("[data-test-id=agreement]").click();
